@@ -28,3 +28,6 @@ SET_ORDER_INFO = {
 
 RANDOM_ORDER_INFO = helpers.generate_order_info()
 
+MAIN_PAGE_URL = "https://qa-scooter.praktikum-services.ru/"
+ORDER_PAGE_URL = "https://qa-scooter.praktikum-services.ru/order"
+

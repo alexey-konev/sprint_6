@@ -2,7 +2,7 @@ import pytest
 import allure
 
 from pages.main_page import MainPage
-from data import Q_AND_A_SECTION
+from data import Q_AND_A_SECTION, MAIN_PAGE_URL
 
 
 class TestMainPage:
@@ -21,6 +21,6 @@ class TestMainPage:
                              ])
     def test_q_and_a_section(self, driver, num, answer):
         main_page = MainPage(driver)
-        driver.get("https://qa-scooter.praktikum-services.ru/")
+        main_page.open_url(MAIN_PAGE_URL)
 
         assert main_page.check_answer_text(num) == answer

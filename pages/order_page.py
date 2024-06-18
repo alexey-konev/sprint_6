@@ -11,6 +11,11 @@ class OrderPage(BasePage):
     def accept_cookies(self):
         self.wait_and_click_element(OrderPageLocators.ACCEPT_COOKIES_LOCATOR)
 
+    @allure.step("Открываем страницу и принимаем куки")
+    def open_page_and_accept_cookies(self, url):
+        self.open_url(url)
+        self.accept_cookies()
+
     @allure.step("Заполняем Имя")
     def fill_in_name(self, name):
         self.add_text_to_element(OrderPageLocators.NAME_FIELD, name)
@@ -61,18 +66,18 @@ class OrderPage(BasePage):
         return self.get_text_from_element(OrderPageLocators.ORDER_CONFIRMED_MESSAGE)
 
     @allure.step("Заполняем первую форму заказа и нажимаем Далее")
-    def fill_in_first_form(self, name, surname, address, num1, phone):
-        self.fill_in_name(name)
-        self.fill_in_surname(surname)
-        self.fill_in_address(address)
-        self.choose_station(num1)
-        self.fill_in_phone(phone)
+    def fill_in_first_form(self, order_info_dict):
+        self.fill_in_name(order_info_dict["name"])
+        self.fill_in_surname(order_info_dict["surname"])
+        self.fill_in_address(order_info_dict["address"])
+        self.choose_station(order_info_dict["metro"])
+        self.fill_in_phone(order_info_dict["phone"])
         self.click_next_button()
 
     @allure.step("Заполняем вторую форму заказа и нажимаем Заказать")
-    def fill_in_second_form(self, date, num2):
-        self.fill_in_date(date)
-        self.choose_rental_duration(num2)
+    def fill_in_second_form(self, order_info_dict):
+        self.fill_in_date(order_info_dict["date"])
+        self.choose_rental_duration(order_info_dict["duration"])
         self.click_order_button()
 
 

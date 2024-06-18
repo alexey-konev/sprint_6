@@ -32,3 +32,13 @@ class BasePage:
         locator = locator.format(num)
         return method, locator
 
+    def open_url(self, url):
+        self.driver.get(url)
+
+    def opened_page_url(self):
+        return self.driver.current_url
+
+    def switch_to_last_window(self):
+        s = self.driver.window_handles  # список открытых окон
+        self.driver.switch_to.window(s[-1])
+

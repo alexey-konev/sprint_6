@@ -3,6 +3,7 @@ import allure
 
 from pages.header_page import HeaderPage
 from pages.yandex_page import YandexPage
+from data import MAIN_PAGE_URL, ORDER_PAGE_URL
 
 
 class TestLogoNavigation:
@@ -11,20 +12,20 @@ class TestLogoNavigation:
     def test_click_on_yandex(self, driver):
         header_page = HeaderPage(driver)
         yandex_page = YandexPage(driver)
-        driver.get("https://qa-scooter.praktikum-services.ru/order")
 
+        header_page.open_url(ORDER_PAGE_URL)
         header_page.click_yandex_logo()
-        s = driver.window_handles  # список открытых окон
-        driver.switch_to.window(s[1])  # переключаемся на последнее окно
-        yandex_page.find_logo()  # ждем, что страница загрузится
-        assert "dzen.ru" in driver.current_url
 
-    @allure.title("Проверка перехода на галвную старницу Самоката через логотип")
+        header_page.switch_to_last_window()  # переключаемся на последнее окно
+        yandex_page.find_logo()  # ждем, что страница загрузится
+        assert "dzen.ru" in yandex_page.opened_page_url()
+
+    @allure.title("Проверка перехода на главную старницу Самоката через логотип")
     def test_click_on_scooter(self, driver):
         header_page = HeaderPage(driver)
-        driver.get("https://qa-scooter.praktikum-services.ru/order")
+        header_page.open_url(ORDER_PAGE_URL)
 
         header_page.click_scooter_logo()
-        assert driver.current_url == "https://qa-scooter.praktikum-services.ru/"
+        assert header_page.opened_page_url() == MAIN_PAGE_URL
 
 

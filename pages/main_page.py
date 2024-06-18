@@ -11,6 +11,11 @@ class MainPage(BasePage):  # наследуем общие методы
     def accept_cookies(self):
         self.wait_and_click_element(MainPageLocators.ACCEPT_COOKIES_LOCATOR)
 
+    @allure.step("Открываем страницу и принимаем куки")
+    def open_page_and_accept_cookies(self, url):
+        self.open_url(url)
+        self.accept_cookies()
+
     @allure.step("Нажимаем на вопрос")
     def click_on_question(self, num):
         formatted_locator_q = self.format_locators(MainPageLocators.QUESTION_LOCATOR, num)
@@ -28,5 +33,6 @@ class MainPage(BasePage):  # наследуем общие методы
         self.click_on_question(num)
         return self.get_text_from_answer(num)
 
+    @allure.step("Нажимаем кнопку Заказать на главной странице")
     def click_order_button(self):
         self.wait_and_click_element(MainPageLocators.ORDER_BUTTON_MAIN_PAGE)
